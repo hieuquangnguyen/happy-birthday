@@ -20,16 +20,18 @@
       .cake {
         position: relative;
         width: 80%;
-        max-width: 300px;
-        height: 100px;
-        background: blue;
-        border-radius: 20px;
-        padding-top: 50px;
+        max-width: 400px;
         margin-top: 20px;
       }
+
+      .cake-img {
+        width: 100%;
+        border-radius: 20px; /* Tạo góc bo tròn cho ảnh bánh */
+      }
+
       .candle {
         position: absolute;
-        top: 0;
+        top: 10px; /* Điều chỉnh vị trí nến phù hợp với hình ảnh */
         width: 40px;
         height: 100px;
         background: yellow;
@@ -121,13 +123,16 @@
     </style>
   </head>
   <body>
-    <h1>Chúc mừng sinh nhật Võ Tường Minh!</h1>
+    <h1>Chúc mừng sinh nhật Mẹ Thanh!</h1>
     <h3>
-      Chăm ngoan, học giỏi... Luyện tập thể dục thể thao nhiều vào để có sức
-      khỏe tốt nhé!
+      Happy birthday to my sister - Always happiness with your family and keep
+      smiles on your lips.
+      <br />
+      <br />
+      Mãi xinh tươi, mãi cười nhiều - Về đơn xịn xịn cho họ nễ luôn chị nhá...
     </h3>
     <h3>HAPPY BIRHTDAY TO YOU</h3>
-    <div class="cake">
+    <!-- <div class="cake">
       <div class="candle candle2">
         <div class="flame"></div>
         1
@@ -136,7 +141,19 @@
         <div class="flame"></div>
         2
       </div>
+    </div> -->
+    <div class="cake">
+      <img src="cake2.png" alt="Bánh sinh nhật" class="cake-img" />
+      <div class="candle candle2">
+        <div class="flame"></div>
+        3
+      </div>
+      <div class="candle candle3">
+        <div class="flame"></div>
+        3
+      </div>
     </div>
+
     <div id="fireworks"></div>
     <script>
       function startFireworks() {
