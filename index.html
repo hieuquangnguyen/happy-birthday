@@ -17,6 +17,7 @@
         height: 100vh;
         flex-direction: column;
       }
+
       .cake {
         position: relative;
         width: 80%;
@@ -26,12 +27,12 @@
 
       .cake-img {
         width: 100%;
-        border-radius: 20px; /* Tạo góc bo tròn cho ảnh bánh */
+        border-radius: 20px;
       }
 
       .candle {
         position: absolute;
-        top: 10px; /* Điều chỉnh vị trí nến phù hợp với hình ảnh */
+        top: 10px;
         width: 40px;
         height: 100px;
         background: yellow;
@@ -42,31 +43,17 @@
         color: red;
         line-height: 100px;
       }
+
       .candle2 {
-        left: 30%;
+        left: 47%;
+        transform: translateX(-100%);
       }
+
       .candle3 {
-        right: 30%;
+        left: 53%;
+        transform: translateX(0);
       }
-      /* .flame {
-        position: absolute;
-        top: -20px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 10px;
-        height: 20px;
-        background: red;
-        border-radius: 50%;
-        animation: flicker 0.5s infinite alternate;
-      }
-      @keyframes flicker {
-        0% {
-          opacity: 1;
-        }
-        100% {
-          opacity: 0.5;
-        }
-      } */
+
       .flame {
         position: absolute;
         top: -25px;
@@ -119,6 +106,7 @@
         height: 100%;
         background: rgba(0, 0, 0, 0.7);
       }
+
       .firework {
         position: absolute;
         width: 5px;
@@ -127,6 +115,7 @@
         border-radius: 50%;
         animation: explode 1s forwards;
       }
+
       @keyframes explode {
         0% {
           transform: scale(1);
@@ -138,29 +127,35 @@
         }
       }
 
-      /* Media Queries for responsiveness */
+      /* Responsive cho thiết bị nhỏ */
       @media (max-width: 600px) {
         .cake {
           width: 90%;
-          max-width: 200px;
+          max-width: 250px;
           padding-top: 30px;
         }
+
         .candle {
           width: 30px;
           height: 80px;
           font-size: 40px;
           line-height: 80px;
         }
+
         .candle2 {
-          left: 25%;
+          left: 46%;
+          transform: translateX(-100%);
         }
+
         .candle3 {
-          right: 25%;
+          left: 54%;
+          transform: translateX(0);
         }
+
         .flame {
-          width: 8px;
-          height: 16px;
-          top: -16px;
+          width: 10px;
+          height: 20px;
+          top: -20px;
         }
       }
     </style>
