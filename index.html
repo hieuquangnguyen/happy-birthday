@@ -48,7 +48,7 @@
       .candle3 {
         right: 30%;
       }
-      .flame {
+      /* .flame {
         position: absolute;
         top: -20px;
         left: 50%;
@@ -66,7 +66,50 @@
         100% {
           opacity: 0.5;
         }
+      } */
+      .flame {
+        position: absolute;
+        top: -25px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 12px;
+        height: 25px;
+        background: radial-gradient(
+          ellipse at center,
+          #fff700 0%,
+          #ff8c00 60%,
+          transparent 100%
+        );
+        border-radius: 50% 50% 40% 40%;
+        opacity: 0.9;
+        animation: flicker 0.2s infinite alternate ease-in-out,
+          sway 1s infinite ease-in-out;
+        box-shadow: 0 0 10px rgba(255, 140, 0, 0.7);
       }
+
+      @keyframes flicker {
+        0% {
+          opacity: 1;
+          transform: translateX(-50%) scale(1);
+        }
+        100% {
+          opacity: 0.7;
+          transform: translateX(-50%) scale(1.1);
+        }
+      }
+
+      @keyframes sway {
+        0% {
+          transform: translateX(-50%) rotate(-2deg);
+        }
+        50% {
+          transform: translateX(-50%) rotate(2deg);
+        }
+        100% {
+          transform: translateX(-50%) rotate(-2deg);
+        }
+      }
+
       #fireworks {
         display: none;
         position: fixed;
@@ -125,7 +168,7 @@
   <body>
     <h1>Happy birthday to Mai Thi!</h1>
     <h3>
-      Happy birthday to Mai Thi - 17+
+      Happy birthday to Mai Thi 17+
       <br />
       <br />
       New age, new lesson, new happiness.
@@ -156,7 +199,7 @@
     </div>
 
     <div id="fireworks"></div>
-    <script>
+    <!-- <script>
       function startFireworks() {
         const fireworks = document.getElementById("fireworks");
         fireworks.style.display = "block";
@@ -210,6 +253,85 @@
                 // Giảm ngưỡng phát hiện
                 extinguishCandles();
               }
+              requestAnimationFrame(detectBlow);
+            }
+
+            detectBlow();
+          })
+          .catch(function (err) {
+            console.error("Lỗi khi truy cập micro: ", err);
+          });
+      } else {
+        alert("Trình duyệt của bạn không hỗ trợ getUserMedia.");
+      }
+    </script> -->
+
+    <script>
+      function startFireworks() {
+        const fireworks = document.getElementById("fireworks");
+        fireworks.style.display = "block";
+
+        for (let i = 0; i < 100; i++) {
+          const firework = document.createElement("div");
+          firework.classList.add("firework");
+          firework.style.top = `${Math.random() * 100}%`;
+          firework.style.left = `${Math.random() * 100}%`;
+          fireworks.appendChild(firework);
+
+          setTimeout(() => {
+            firework.remove();
+          }, 1000);
+        }
+
+        setTimeout(() => {
+          fireworks.style.display = "none";
+        }, 2000);
+      }
+
+      function extinguishCandles() {
+        document
+          .querySelectorAll(".flame")
+          .forEach((flame) => (flame.style.display = "none"));
+        startFireworks();
+      }
+
+      // Kiểm tra hỗ trợ microphone
+      if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        navigator.mediaDevices
+          .getUserMedia({ audio: true })
+          .then(function (stream) {
+            const audioContext = new (window.AudioContext ||
+              window.webkitAudioContext)();
+            const microphone = audioContext.createMediaStreamSource(stream);
+            const analyser = audioContext.createAnalyser();
+            microphone.connect(analyser);
+            analyser.fftSize = 128;
+            const bufferLength = analyser.frequencyBinCount;
+            const dataArray = new Uint8Array(bufferLength);
+
+            // Các thông số điều chỉnh độ nhạy
+            let blowThreshold = 80; // Ngưỡng để coi là thổi mạnh
+            let blowCount = 0; // Đếm số lần vượt ngưỡng liên tiếp
+            let requiredBlowFrames = 5; // Cần ít nhất 5 khung hình vượt ngưỡng
+
+            function detectBlow() {
+              analyser.getByteFrequencyData(dataArray);
+              let sum = 0;
+              for (let i = 0; i < bufferLength; i++) {
+                sum += dataArray[i];
+              }
+              const average = sum / bufferLength;
+
+              if (average > blowThreshold) {
+                blowCount++;
+                if (blowCount >= requiredBlowFrames) {
+                  extinguishCandles();
+                  blowCount = 0;
+                }
+              } else {
+                blowCount = 0; // Reset nếu không đủ lực
+              }
+
               requestAnimationFrame(detectBlow);
             }
 
